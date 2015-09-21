@@ -6,7 +6,50 @@
 // @updateURL https://raw.githubusercontent.com/ssut/DirectLinksChrome/stable/directlinks.user.js
 // @downloadURL https://raw.githubusercontent.com/ssut/DirectLinksChrome/stable/directlinks.user.js
 // Targets
-// @include *://*.google*
+// @include https://*.google*
 // @copyright 2015 SuHun Han (ssut)
 // @grant none
 // ==/UserScript==
+
+var dlinks = {
+    google: {
+        urlpattern: 'google.',
+        pattern: /[?&]url=[^&]+/,
+        replaceTo: function(link) {
+            return link;
+        },
+        checkValid: function(hostname, param) {
+
+        }
+    }
+};
+var match = undefined;
+
+function onClick(e) {
+    var et = e.target, lc = -1;
+    while(et && !(et instanceof HTMLAnchorElement) && (3 > lc++)) {
+        et = et.parentElement;
+    }
+    if(!et || !et.href) return;
+    var link = et;
+    e.stopPropagation();
+    console.log(link);
+}
+
+function execute() {
+    var hostname = window.location.hostname;
+    for(var name in dlinks) {
+        var rule = dlinks[name];
+        if(hostname.indexOf(rule.urlpattern) > -1) {
+            match = rule;
+            document.addEventListener('mousedown', onClick, false);
+            break;
+        }
+    }
+}
+
+if(document.readyState === 'interactive' || document.readyState === 'complete') {
+    execute();
+} else {
+    window.addEventListener('DOMContentLoaded', execute, true);
+}
