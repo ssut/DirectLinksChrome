@@ -7,6 +7,7 @@
 // @downloadURL https://raw.githubusercontent.com/ssut/DirectLinksChrome/stable/directlinks.user.js
 // Targets
 // @include https://*.google*
+// @include http://*.ppomppu.co.kr*
 // @copyright 2015 SuHun Han (ssut)
 // @grant none
 // ==/UserScript==
@@ -32,6 +33,18 @@ var dlinks = {
             return (hostname.indexOf('www.') > -1 || hostname.indexOf('encrypted') > -1) &&
                    (pathname === '/' || pathname === '/search' || pathname === '/webhp');
         }
+    },
+    ppomppu: {
+        urlpattern: 'ppomppu.co.kr',
+        pattern: /[?&]target=[^&]+/,
+        replaceTo: function(link) {
+            if(link.hostname === 's.ppomppu.co.kr') {
+                return atob(decodeURIComponent(link.search.split(/[?&]target=/)[1].split('&')[0]));
+            }
+        },
+        checkValid: function(hostname, pathname, fullpath) {
+            return pathname.indexOf('view.php') > -1;
+        }
     }
 };
 var match = undefined;
@@ -44,6 +57,7 @@ function onClick(e) {
     if(!et || !et.href) return;
     var link = et;
     e.stopPropagation();
+    if(match.pattern && !match.pattern.test(link.href)) return;
     var newlink = match.replaceTo(link);
     if(newlink) link.href = newlink;
 }
