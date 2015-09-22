@@ -31,7 +31,7 @@ if you have done with UserScript plugin, let you select the link below you want 
 
 ### Report a bug or Add a new filter
 
-DiurectLinks uses GitHub's issue tracker, please refer to the [Issues](https://github.com/ssut/DirectLinksChrome/issues).
+DirectLinks uses GitHub's issue tracker, please refer to the [Issues](https://github.com/ssut/DirectLinksChrome/issues).
 
 ### Contributing your source code
 Fork this project and send me a pull request like other repositories.
