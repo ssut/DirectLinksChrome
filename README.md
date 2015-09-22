@@ -4,6 +4,8 @@ This extension circumvents certain techniques some websites used by, such as Goo
 
 ## What does this extension do?
 
+[한국어 설명](http://macnews.tistory.com/3663)
+
 As described. Some websites are probably tracking what you're doing right now or what page you're looking at, by when you click a link to get other page you may need.
 So anyway, this enables you to be free from them by changing the target URL in a link tag when you click a hyperlink.
 
