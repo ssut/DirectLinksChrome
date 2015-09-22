@@ -39,7 +39,7 @@ var dlinks = {
         pattern: /[?&]target=[^&]+/,
         replaceTo: function(link) {
             if(link.hostname === 's.ppomppu.co.kr') {
-                return atob(decodeURIComponent(link.search.split(/[?&]target=/)[1].split('&')[0]));
+                return atob(decodeURIComponent(link.search.split(/[?&]target=/)[1].split('&')[0]).replace(/\\=/, '='));
             }
         },
         checkValid: function(hostname, pathname, fullpath) {
