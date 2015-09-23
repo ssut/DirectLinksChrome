@@ -1,13 +1,14 @@
 // ==UserScript==
 // @name DirectLinks
 // @namespace http://ssut.me/directlinks
-// @version 0.1.0
+// @version 0.1.1
 // @description Do not track what I do on a website
 // @updateURL https://raw.githubusercontent.com/ssut/DirectLinksChrome/stable/directlinks.user.js
 // @downloadURL https://raw.githubusercontent.com/ssut/DirectLinksChrome/stable/directlinks.user.js
 // Targets
 // @include https://*.google*
 // @include http://*.ppomppu.co.kr*
+// @include http://*search.naver.com*
 // @copyright 2015 SuHun Han (ssut)
 // @grant none
 // ==/UserScript==
@@ -44,6 +45,20 @@ var dlinks = {
         },
         checkValid: function(hostname, pathname, fullpath) {
             return pathname.indexOf('view.php') > -1;
+        }
+    },
+    naver: {
+        urlpattern: 'search.naver.com',
+        pattern: null,
+        replaceTo: function(link) {
+            if(link.onclick) {
+                link.onclick = function() {};
+            }
+
+            return null;
+        },
+        checkValid: function(hostname, pathname, fullpath) {
+            return pathname.indexOf('search.naver') > -1;
         }
     }
 };
